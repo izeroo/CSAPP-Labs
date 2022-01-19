@@ -142,7 +142,9 @@ NOTES:
  *   Rating: 1
  */
 int bitXor(int x, int y) {
-  // De Morgan's laws
+  /*
+   * assume logical equal: eq = (x&&y) || (!x&&!y)
+   * so bit level xor: ~eq = ~(x&y) & ~(~x&~y)
   return ~(~x & ~y) & ~(x & y);
 }
 /*
