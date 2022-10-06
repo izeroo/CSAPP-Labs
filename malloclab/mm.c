@@ -1,6 +1,6 @@
 /*
  * mm-implicit-list.c - Plain malloc package using implicit list.
- * fit strategy: next fit.
+ *                      Fit strategy: next fit.
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,21 +28,19 @@ team_t team = {
     ""
 };
 
-/* single word (4) or double word (8) alignment */
-#define ALIGNMENT 8 /* 8 bytes alignment in x86 mode */
+/* 8 bytes alignment in 32bit mode */
+#define ALIGNMENT 8
 
-/* s up to the nearest multiple of ALIGNMENT */
+/* Rounds up to the nearest multiple of ALIGNMENT */
 #define ALIGN(size) (((size) + (ALIGNMENT-1)) & ~0x7)
-
-/* size of size_t */
-#define SIZE_T_SIZE (ALIGN(sizeof(size_t)))
 
 //* Basic constants and macros: */
 #define WSIZE      4          /* Word and header/footer size (bytes) */
 #define DSIZE      8          /* Doubleword size (bytes) */
 #define CHUNKSIZE  (1<<12)    /* Extend heap by this amount (bytes) */
 #define MINBLOCKSIZE 16
-/*Max value of 2 values*/
+
+/* Max value of 2 values */
 #define MAX(x, y) ((x) > (y) ? (x) : (y))
 
 /* Pack a size and allocated bit into a word */
@@ -96,7 +94,7 @@ int mm_init(void)
 
 /* 
  * mm_malloc - Allocate a block by incrementing the brk pointer.
- *     Always allocate a block whose size is a multiple of the alignment.
+ *             Always allocate a block whose size is a multiple of the alignment.
  */
 void *mm_malloc(size_t size)
 {
@@ -258,14 +256,12 @@ static void *find_fit(size_t asize)
     return NULL;
 }
 
-/* Place requested block in a free block, split if necessary*/
+/* Place requested block in a free block, split if necessary */
 static void place(void *bp, size_t asize)
 {
     size_t blk_size = GET_SIZE(HDRP(bp));
     size_t remain_size = blk_size - asize;
     
-    
-
     /* split if we have space space */
     if ( remain_size >= 16) {
         /* set up malloced block */
