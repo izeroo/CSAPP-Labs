@@ -1,3 +1,5 @@
 .*
 .*.*
 !.gitignore
+.gdb_history
+malloclab/*.o

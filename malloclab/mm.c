@@ -1,5 +1,6 @@
 /*
  * mm-implicit-list.c - Plain malloc package using implicit list.
+ * fit strategy: next fit.
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -228,7 +229,7 @@ static void *extend_heap(size_t words)
 /* Find freeblock that fits the request size and return it's bp */
 static void *find_fit(size_t asize)
 {
-    // /* Find free block that fits the requsted asize.*/
+    // /* Find free block that fits the requsted asize. (first fit)*/
     // for(char* bp = heap_listp; GET_SIZE(HDRP(bp)) > 0; bp = NEXT_BLKP(bp)) {
     //     if (!GET_ALLOC(HDRP(bp)) && GET_SIZE(HDRP(bp)) >= asize) {
     //         return bp;
@@ -236,6 +237,7 @@ static void *find_fit(size_t asize)
     // }
     // return NULL;
 
+    /* next fit */
     for (char* bp = prev_listp; GET_SIZE(HDRP(bp)) > 0; bp = NEXT_BLKP(bp))
     {
         if (!GET_ALLOC(HDRP(bp)) && GET_SIZE(HDRP(bp)) >= asize)
@@ -262,9 +264,7 @@ static void place(void *bp, size_t asize)
     size_t blk_size = GET_SIZE(HDRP(bp));
     size_t remain_size = blk_size - asize;
     
-    /* set up malloced block */
-    PUT(HDRP(bp), PACK(blk_size, 1));
-    PUT(FTRP(bp), PACK(blk_size, 1));
+    
 
     /* split if we have space space */
     if ( remain_size >= 16) {
@@ -274,6 +274,11 @@ static void place(void *bp, size_t asize)
         /* set up spilited block */
         PUT(HDRP(NEXT_BLKP(bp)), PACK(remain_size, 0));
         PUT(FTRP(NEXT_BLKP(bp)), PACK(remain_size, 0));
+    }
+    else {
+        /* set up malloced block */
+        PUT(HDRP(bp), PACK(blk_size, 1));
+        PUT(FTRP(bp), PACK(blk_size, 1));
     }
     prev_listp = bp;
 }
