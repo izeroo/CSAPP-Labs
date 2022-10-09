@@ -1,9 +1,8 @@
+#include <stddef.h>
 #include <stdio.h>
-#define ALIGNMENT 16
-#define DSIZE 8
+static char *global_static_var;
 int main()
 {
-    void *a = 0xdeadbeef;
-    char *b = 0xdeadbeef;
-    printf("%d\n", a==b);
+    printf("%x at %p\n", global_static_var, &global_static_var);
+    return 0;
 }
