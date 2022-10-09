@@ -29,7 +29,7 @@ team_t team = {
     ""
 };
 
-//#define DEBUG
+// #define DEBUG
 #ifdef DEBUG
 # define DBG_PRINTF(...) printf(__VA_ARGS__)
 # define CHECKHEAP(verbose) mm_checkheap(verbose)
@@ -337,7 +337,7 @@ static void insert(void* bp)
         freelist_headp = bp;
         SET_FDP(bp, NULL);
         SET_BKP(bp, NULL);
-        mm_checkheap(0);
+        CHECKHEAP(0);
         return;
     }
     /* Set up current block */
@@ -347,7 +347,7 @@ static void insert(void* bp)
     SET_BKP(freelist_headp, bp);
     /* Free list head is np now */
     freelist_headp = bp;
-    mm_checkheap(0);
+    CHECKHEAP(0);
 }
 /*
  * delete - Remove given block pointer from free list.
@@ -376,7 +376,7 @@ static void delete(void* bp)
         SET_FDP(BKP(bp), FDP(bp));
         SET_BKP(FDP(bp), BKP(bp));
     }
-    mm_checkheap(0);
+    CHECKHEAP(0);
 }
 
 static void mm_checkheap(int verbose)
