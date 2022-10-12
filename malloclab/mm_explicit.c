@@ -69,7 +69,7 @@ team_t team = {
 #define HDRP(bp)  ((char *)(bp) - WSIZE)
 #define FTRP(bp)  ((char *)(bp) + GET_SIZE(HDRP(bp)) - DSIZE)
 
-/* Given block ptr bp, compute address of foward and back pointer field (foward and back blocks are logically linked) */
+/* Given block ptr bp, get value of it's foward and back pointer (foward and back blocks are logically linked) */
 #define FDP(bp)  (*(char **)(bp + WSIZE))
 #define BKP(bp)  (*(char **)(bp))
 
