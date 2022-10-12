@@ -55,7 +55,6 @@ team_t team = {
 #define GET_SIZE(p)   (GET(p) & ~0x7) /* Take attention!!! size = header + payload + footer */
 #define GET_ALLOC(p)  (GET(p) & 0x1)
 #define GET_PREV_ALLOC(p)  (GET(p) & 0x2)
-#define GET_PREALLOC(p) (GET(p) & 0x2)
 
 /* Set and clear prev_alloc status at adress p*/
 #define SET_PREV_ALLOC(p) (PUT(p, GET(p) | 0x2))
