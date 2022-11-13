@@ -5,11 +5,10 @@
     Chunks of memory are maintained using a `boundary tag' method as
     described in e.g., Knuth or Standish.  (See the paper by Paul
     Wilson ftp://ftp.cs.utexas.edu/pub/garbage/allocsrv.ps for a
-    survey of such techniques.)  Sizes of free chunks are stored both
-    in the front of each chunk and at the end.  This makes
-    consolidating fragmented chunks into bigger chunks very fast.  The
-    size fields also hold bits representing whether chunks are free or
-    in use.
+    survey of such techniques.)  Sizes of free chunks are stored in
+    both the front and end of each chunk. This makes consolidating
+    fragmented chunks into bigger chunks very fast. The size fields
+    also hold bits representing whether chunks are free or in use.
 
     An allocated chunk looks like this:
     
